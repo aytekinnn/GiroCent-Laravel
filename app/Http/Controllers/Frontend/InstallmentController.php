@@ -12,14 +12,14 @@ class InstallmentController extends Controller
     public function index()
     {
         $installments = Installments::all()->where('user_id', Auth::user()->id)->groupBy(function($item){
-            return $item->user_id . '-' . $item->order_id;
+            return $item->user_id . '-' . $item->order_id . '-' . $item->product_id;
         });
 
         $date = now();
         $installmentData = [];
 
         foreach ($installments as $groupKey => $group) {
-            list($user_id, $order_id) = explode('-', $groupKey);
+            list($user_id, $order_id, $product_id) = explode('-', $groupKey);
             $paidInstallments = $group->where('status', 1)->count();
             $totalInstallments = $group->count();
             $lastInstallment = $group->last();
@@ -40,6 +40,7 @@ class InstallmentController extends Controller
             $installmentData[] = [
               'user_id' => $user_id,
               'order_id' => $order_id,
+              'product_id' => $product_id,
               'paidInstallments' => $paidInstallments,
               'totalInstallments' => $totalInstallments,
               'nextPaymentDate' => $nextPaymentDate,
@@ -55,6 +56,7 @@ class InstallmentController extends Controller
         $date = now();
 
         $installments = Installments::where('user_id', $installment->user_id)
+            ->where('product_id', $installment->product_id)
             ->with('user')
             ->where('order_id', $installment->order_id)
             ->get();

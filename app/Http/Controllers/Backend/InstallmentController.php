@@ -11,14 +11,14 @@ class InstallmentController extends Controller
     public function index()
     {
         $installments = Installments::all()->groupBy(function($item) {
-            return $item->user_id . '-' . $item->order_id;
+            return $item->user_id . '-' . $item->order_id . '-' . $item->product_id;
         });
 
         $date = now();
         $installmentData = [];
 
         foreach ($installments as $groupKey => $group) {
-            list($user_id, $order_id) = explode('-', $groupKey);
+            list($user_id, $order_id, $product_id) = explode('-', $groupKey);
 
             $userName = \App\Models\User::find($user_id)->name; // Kullanıcı adını al
 
@@ -43,6 +43,7 @@ class InstallmentController extends Controller
             $installmentData[] = [
                 'user_id' => $user_id,
                 'order_id' => $order_id,
+                'product_id' => $product_id,
                 'user_name' => $userName, // Kullanıcı adı veriye ekleniyor
                 'paidInstallments' => $paidInstallments,
                 'totalInstallments' => $totalInstallments,
@@ -62,6 +63,7 @@ class InstallmentController extends Controller
         $installments = Installments::where('user_id', $installment->user_id)
             ->with('user')
             ->where('order_id', $installment->order_id)
+            ->where('product_id', $installment->product_id)
             ->get();
 
 

@@ -13,12 +13,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $amount
  * @property string $due_date
  * @property int $status
+ * @property int product_id
  */
 class Installments extends Model
 {
     use HasFactory;
     protected $table = 'installments';
-    protected $fillable = ['order_id', 'user_id', 'taksit_no', 'amount', 'due_date', 'status'];
+    protected $fillable = ['order_id', 'user_id', 'taksit_no', 'amount', 'due_date', 'status','product_id'];
 
     public function user()
     {
