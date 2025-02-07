@@ -123,7 +123,7 @@ class OrderController extends Controller
                     'redirect_url' => route('order.index')
                 ]);
 
-            case 'ret':
+            case 'reddet':
                 $order->status = '3';
                 $order->save();
 

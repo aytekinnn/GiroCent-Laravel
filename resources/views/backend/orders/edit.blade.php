@@ -29,77 +29,77 @@
                                 <label class="form-label">Müşteri İsim Soyisim</label>
                                 <div class="position-relative">
                                     <input type="text" name="name" class="form-control wizard-required"
-                                           id="kategoriAdi" oninput="generateSlug()" placeholder="Ürün Adı"
+                                           id="kategoriAdi" oninput="generateSlug()" placeholder="Ürün Adı" disabled
                                            required value="{{$order->user->name}}">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Müşteri Mail</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->user->email}}">
                                 </div>
                             </div>
                             <div class="col-sm-4">
                                 <label class="form-label">Müşteri Telefon</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->user->phone ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Sipariş Tarihi</label>
                                 <div class="position-relative">
-                                    <input type="date" name="name" class="form-control wizard-required"
+                                    <input type="date" name="name" class="form-control wizard-required" disabled
                                            required value="{{$created}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Şirket Adı</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->company_name ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Adres</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->address?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-3 mt-20">
                                 <label class="form-label">Ülke</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->ulke ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-3 mt-20">
                                 <label class="form-label">Şehir</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->sehir ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-3 mt-20">
                                 <label class="form-label">İlçe</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->ilce ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-3 mt-20">
                                 <label class="form-label">Posta Kodu</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->posta_kodu ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">İcra Dosyası</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->icraDosya=="0" ? "selected=''" : ""}} value="0">Evet var.
                                             Kalan borç 10.000₺ üstünde
                                         </option>
@@ -118,7 +118,7 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Son İş Yerinde Çalışma Süresi ?</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->calismaSuresi=="0" ? "selected=''" : ""}} value="0">6 aydan
                                             az
                                         </option>
@@ -137,7 +137,7 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Aylık Gelir ?</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->aylikGelir=="0" ? "selected=''" : ""}} value="0">22.000 ₺
                                             altı
                                         </option>
@@ -156,7 +156,7 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Mal Varligi ?</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->malVarligi=="0" ? "selected=''" : ""}} value="0">Ev</option>
                                         <option {{$order->malVarligi=="1" ? "selected=''" : ""}} value="1">Araba
                                         </option>
@@ -170,28 +170,28 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Doğum Tarihi</label>
                                 <div class="position-relative">
-                                    <input type="date" name="name" class="form-control wizard-required"
+                                    <input type="date" name="name" class="form-control wizard-required" disabled
                                            required value="{{$dogum}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">TC.</label>
                                 <div class="position-relative">
-                                    <input type="date" name="name" class="form-control wizard-required"
+                                    <input type="date" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->tc}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Medeni Durum</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->medeni_durum}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Oturduğunuz Ev ?</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->evDurum=="0" ? "selected=''" : ""}} value="0">Kira</option>
                                         <option {{$order->evDurum=="1" ? "selected=''" : ""}} value="1">Kendim</option>
                                         <option {{$order->evDurum=="2" ? "selected=''" : ""}} value="2">Lojman</option>
@@ -201,7 +201,7 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Sgk Durumu ?</label>
                                 <div class="position-relative">
-                                    <select name="status" class="form-select">
+                                    <select name="status" class="form-select" disabled>
                                         <option {{$order->sgkDurum=="0" ? "selected=''" : ""}} value="0">4A aktif işçi
                                         </option>
                                         <option {{$order->sgkDurum=="1" ? "selected=''" : ""}} value="1">4B bağkur
@@ -220,27 +220,15 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Bağlantı Kurulacak Kişinin Adı</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->baglanti}}">
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">Bağlantılı Kişinin Telefon Numarası</label>
                                 <div class="position-relative">
-                                    <input type="text" name="name" class="form-control wizard-required"
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->baglantiTelefon}}">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 mt-20">
-                                <label class="form-label">Taksit Seçeneği ?</label>
-                                <div class="position-relative">
-                                    <select name="taksit" id="taksit" class="form-select">
-                                        <option {{$order->taksit=="0" ? "selected=''" : ""}} value="0">6</option>
-                                        <option {{$order->taksit=="1" ? "selected=''" : ""}} value="1">9</option>
-                                        <option {{$order->taksit=="2" ? "selected=''" : ""}} value="2">12</option>
-                                        <option {{$order->taksit=="3" ? "selected=''" : ""}} value="3">18</option>
-                                        <option {{$order->taksit=="4" ? "selected=''" : ""}} value="4">24</option>
-                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -378,7 +366,6 @@
 
                             </div>
                         </div>
-                        <!-- Table End -->
                     </div>
                 </div>
             </div>

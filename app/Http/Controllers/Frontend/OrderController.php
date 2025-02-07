@@ -3,20 +3,31 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Mail\OrderShipped;
 use App\Models\Carts;
 use App\Models\Orders;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
     public function create(REQUEST $request){
 
         $cartId = $request->cartId;
+        $user = Auth::user();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lütfen giriş yapın!'
+            ]);
+        }
 
         $existingOrder = Orders::where('cartId', $cartId)
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', $user->id)
             ->where('status', 1)
             ->exists();
 
@@ -26,65 +37,64 @@ class OrderController extends Controller
                 'message' => 'Bekleyen onayınız var!'
             ]);
         }
-        $orderData = $request->all();
-        /**
-         *  $user_id
-         *  $phone
-         *  $tc
-         *  $company_name
-         *  $address
-         *  $ulke
-         *  $sehir
-         *  $ilce
-         *  $posta_kodu
-         *  $icraDosya
-         *  $calismaSuresi
-         *  $aylikGelir
-         *  $malVarligi
-         *  $dogum
-         *  $medeni_durum
-         *  $evDurum
-         *  $sgkDurum
-         *  $baglanti
-         *  $baglantiTelefon
-         *  $message
-         *  $status
-         *  $taksit
-         *  $cartId
-        */
-        $order = new Orders();
-        $order->user_id = Auth::user()->id;
-        $order->phone = $orderData['phone'];
-        $order->tc = $orderData['tc'];
-        $order->address = $orderData['address'];
-        $order->company_name = $orderData['company_name'];
-        $order->ulke = $orderData['ulke'];
-        $order->sehir = $orderData['sehir'];
-        $order->ilce = $orderData['ilce'];
-        $order->posta_kodu = $orderData['posta_kodu'];
-        $order->icraDosya = $orderData['icraDosya'];
-        $order->calismaSuresi = $orderData['calismaSuresi'];
-        $order->aylikGelir = $orderData['aylikGelir'];
-        $order->malVarligi = $orderData['malVarligi'];
-        $order->dogum = $orderData['dogum'];
-        $order->medeni_durum = $orderData['medeni_durum'];
-        $order->evDurum = $orderData['evDurum'];
-        $order->sgkDurum = $orderData['sgkDurum'];
-        $order->baglanti = $orderData['baglanti'];
-        $order->baglantiTelefon = $orderData['baglantiTelefon'];
-        $order->message = $orderData['message'];
-        $order->status = 1;
-        $order->taksit = $orderData['taksit'];
-        $order->cartId = $orderData['cartId'];
-        $order->adet = $orderData['adet'];
-        $order->save();
 
-        Carts::where('user_id', Auth::user()->id)->delete();
+// Doğrulama işlemi
+        $validator = Validator::make($request->all(), [
+            'phone' => 'required|string',
+            'tc' => 'required|string',
+            'address' => 'required|string',
+            'company_name' => 'nullable|string',
+            'ulke' => 'required|string',
+            'sehir' => 'required|string',
+            'ilce' => 'required|string',
+            'posta_kodu' => 'required|string',
+            'icraDosya' => 'nullable|string',
+            'calismaSuresi' => 'nullable|string',
+            'aylikGelir' => 'nullable|string',
+            'malVarligi' => 'nullable|string',
+            'dogum' => 'required|date',
+            'medeni_durum' => 'nullable|string',
+            'evDurum' => 'nullable|string',
+            'sgkDurum' => 'nullable|string',
+            'baglanti' => 'nullable|string',
+            'baglantiTelefon' => 'nullable|string',
+            'message' => 'nullable|string',
+            'taksit' => 'nullable|string',
+            'cartId' => 'required|integer',
+            'adet' => 'required|integer',
+        ]);
+
+// Eğer doğrulama başarısız olursa hata mesajlarını döndür
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first() // İlk hata mesajını döndür
+            ]);
+        }
+
+// Sipariş oluştur
+        $order = Orders::create(array_merge($validator->validated(), [
+            'user_id' => $user->id,
+            'status' => 1,
+        ]));
+
+        try {
+            Mail::to('umutdeniz85@gmail.com')->send(new OrderShipped($order, $user));
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Sipariş oluşturuldu ancak e-posta gönderilirken bir hata oluştu.',
+                'error' => $e->getMessage()
+            ]);
+        }
+
+        Carts::where('user_id', $user->id)->delete();
 
         return response()->json([
             'success' => true,
-            'redirect_url' => route('checkout.complate'),
+            'redirect_url' => route('checkout.complate')
         ]);
+
     }
 
     public function index(){

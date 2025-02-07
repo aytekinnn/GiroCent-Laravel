@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string|null $product_code
  * @property string|null $image
  * @property string|null $location
- * @property int|null $price
+ * @property string|null $price
  * @property int|null $tax_class
  * @property int|null $stock
  * @property int|null $stok_dus

@@ -134,6 +134,10 @@ class ProductController extends Controller
             'image' => 'required|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
 
+        $price = $request->input('price');
+        $tax_class = $request->input('tax_class');
+        $price += $price * ($tax_class == 0 ? 0.10 : 0.20);
+
         if ($request->hasFile('image')) {
             $request->validate([
                 'image' => 'required|image|mimes:jpg,jpeg,png|max:5096'
@@ -150,7 +154,7 @@ class ProductController extends Controller
 
         $extraFeature_ids = $request->input('extra_feature_id');
         $descript = $request->input('extra_feature_description');
-        $price = $request->input('extra_feature_price');
+        $prices = $request->input('extra_feature_price');
 
         $features = [];
         foreach ($feature_ids as $index => $feature_id) {
@@ -159,7 +163,7 @@ class ProductController extends Controller
 
         $extraFeatures = [];
         foreach ($extraFeature_ids as $index => $extraFeature_id) {
-            $extraFeatures[] = $extraFeature_id . ',' . $descript[$index] . ',' . $price[$index];
+            $extraFeatures[] = $extraFeature_id . ',' . $descript[$index] . ',' . $prices[$index];
         }
 
         $extraFeaturesString = implode('||', $extraFeatures);
@@ -172,7 +176,7 @@ class ProductController extends Controller
         $product->description = $validatedData['description'];
         $product->slug = $validatedData['slug'];
         $product->image = $file_name;
-        $product->price = $request->input('price');
+        $product->price = $price;
         $product->product_code = $request->product_code;
         $product->location = $request->location;
         $product->tax_class = $request->tax_class;
