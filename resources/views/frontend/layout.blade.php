@@ -207,7 +207,7 @@
                                                 <i class="flaticon-user"></i> {{Auth::user()->name}}
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                                <a class="dropdown-item" href="terms-conditios.html">Hesap Ayarları</a>
+                                                <a class="dropdown-item" href="{{route('hesabim.index')}}">Hesap Ayarları</a>
                                                 <a class="dropdown-item" href="{{route('orders.index')}}">Siparişlerim</a>
                                                 <a class="dropdown-item" href="{{route('installment.indexs')}}">Taksit Ödeme</a>
                                                 <a class="dropdown-item" href="{{route('logout.front')}}">Çıkış Yap</a>

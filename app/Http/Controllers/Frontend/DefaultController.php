@@ -162,4 +162,64 @@ class DefaultController extends Controller
         }
 
     }
+
+    public function account()
+    {
+        $user = Auth::user();
+        return view('frontend.default.account', compact('user'));
+    }
+
+    public function accountPost(Request $request)
+    {
+
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password1' => 'nullable|min:8|same:password2',
+            'password2' => 'nullable',
+        ], [
+            'password1.same' => 'Şifreler aynı değil!'
+        ]);
+
+        if ($request->hasFile('image')) {
+            $request->validate([
+                'image' => 'required|image|mimes:jpg,jpeg,png|max:2048'
+            ]);
+
+            // Eski resmi sil
+            if ($user->image) {
+                $oldImagePath = public_path('images/user/' . $user->image);
+                if (file_exists($oldImagePath)) {
+                    unlink($oldImagePath);
+                }
+            }
+
+            // Yeni resmi kaydet
+            $file_name = uniqid() . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('images/user'), $file_name);
+            $user->image = $file_name;
+        } else {
+            $user->image = $request->get('old_image', $user->image);
+        }
+
+// Kullanıcı bilgilerini güncelle
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->phone = $request->get('phone');
+
+// Eğer yeni şifre girilmişse güncelle, yoksa eski şifreyi koru
+        if ($request->filled('password1')) {
+            $user->password = Hash::make($request->get('password1'));
+        }
+
+        if ($user->save()) {
+            return back()->with('success', 'Güncelleme İşlemi Başarılı');
+        } else {
+            return back()->with('error', 'Güncelleme İşlemi Başarısız');
+        }
+
+    }
 }

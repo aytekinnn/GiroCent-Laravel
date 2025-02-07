@@ -38,7 +38,6 @@ class OrderController extends Controller
             ]);
         }
 
-// Doğrulama işlemi
         $validator = Validator::make($request->all(), [
             'phone' => 'required|string',
             'tc' => 'required|string',
@@ -59,12 +58,9 @@ class OrderController extends Controller
             'baglanti' => 'nullable|string',
             'baglantiTelefon' => 'nullable|string',
             'message' => 'nullable|string',
-            'taksit' => 'nullable|string',
-            'cartId' => 'required|integer',
-            'adet' => 'required|integer',
+            'taksit' => 'string',
         ]);
 
-// Eğer doğrulama başarısız olursa hata mesajlarını döndür
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -75,6 +71,9 @@ class OrderController extends Controller
 // Sipariş oluştur
         $order = Orders::create(array_merge($validator->validated(), [
             'user_id' => $user->id,
+            'adet' => $request->adet,
+            'cartId' => $cartId,
+            'taksit' => $request->taksit,
             'status' => 1,
         ]));
 

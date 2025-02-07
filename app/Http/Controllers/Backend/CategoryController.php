@@ -83,7 +83,6 @@ class CategoryController extends Controller
             $request->icon->move(public_path('images/category'), $file_name);
             $cat->icon = $file_name;
         } else {
-
             $cat->icon = $request->get('old_icon', $cat->icon);
         }
 

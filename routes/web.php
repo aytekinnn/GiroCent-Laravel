@@ -44,6 +44,7 @@ use App\Http\Controllers\Backend\ExtraFeaturesController;
     Route::get('/hakkimizda',[DefaultController::class, 'about'])->name('hakkimizda.index');
     Route::get('/faq',[DefaultController::class, 'faq'])->name('faq.index');
     Route::get('/hesabim', [DefaultController::class, 'account'])->name('hesabim.index');
+    Route::post('/hesabim-post', [DefaultController::class, 'accountPost'])->name('account.post');
 
     Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');
     Route::post('/cart/remove', [CartController::class, 'remove'])->name('cart.remove');
