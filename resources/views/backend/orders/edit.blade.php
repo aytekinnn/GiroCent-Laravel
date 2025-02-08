@@ -177,7 +177,7 @@
                             <div class="col-sm-4 mt-20">
                                 <label class="form-label">TC.</label>
                                 <div class="position-relative">
-                                    <input type="date" name="name" class="form-control wizard-required" disabled
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->tc}}">
                                 </div>
                             </div>

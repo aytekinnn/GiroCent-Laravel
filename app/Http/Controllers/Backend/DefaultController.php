@@ -82,4 +82,42 @@ class DefaultController extends Controller
         Auth::logout();
         return redirect(route('home.index'));
     }
+
+    public function users(){
+        $user = User::all();
+        return view('backend.users.index',compact('user'));
+    }
+
+    public function viewUser(Request $request){
+        $uid = $request->input('uid');
+        $user = User::find($uid);
+        return view('backend.users.view',compact('user'));
+    }
+
+    public function editUser(Request $request){
+        $id = $request->input('id');
+        $updateData = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'phone' => $request->input('phone'),
+            'status' => $request->input('status'),
+        ];
+
+        $user = User::where('id',$id)->update($updateData);
+
+        if($user){
+            return back()->with('success', 'Düzenleme İşlemi Başarılı');
+        } else {
+            return back()->with('error', 'Düzenleme İşlemi Başarısız');
+        }
+    }
+
+    public function deleteUser($id){
+        $user = User::find($id);
+        if($user->delete()){
+            return back()->with('success', 'Kullanıcı Silme İşlemi Başarılı');
+        } else {
+            return back()->with('error', 'Kullanıcı Silme İşlemi Başarısız');
+        }
+    }
 }

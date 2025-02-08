@@ -104,24 +104,25 @@
                                 <div class="product-details-size mb-40">
                                     <ul>
                                         @foreach($product->groupedExtraFeatures as $featureId => $extraFeatureGroup)
-                                            @if($extraFeatureGroup->isNotEmpty()) {{-- Eğer bu özellik grubu boş değilse --}}
-                                            <li>
-                                                <strong>{{ optional($extraFeatureGroup->first()['feature'])->name }}</strong>
-                                                <ul>
-                                                    @foreach($extraFeatureGroup as $extraFeature)
-                                                        <li>
-                                                            <a class="data-price" data-id="{{$extraFeature['id']}}" data-price="{{ $extraFeature['price'] ?? 0 }}" href="#">
-                                                                {{ $extraFeature['content'] ?? 'Bilinmeyen İçerik' }}
-                                                            </a>
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                            </li>
+                                            @if($extraFeatureGroup->isNotEmpty())
+                                                <li class="feature-group">
+                                                    <strong>{{ optional($extraFeatureGroup->first()['feature'])->name }}</strong>
+                                                    <ul>
+                                                        @foreach($extraFeatureGroup as $extraFeature)
+                                                            <li>
+                                                                <a class="data-price" data-id="{{$extraFeature['id']}}" data-price="{{ $extraFeature['price'] ?? 0 }}" href="#">
+                                                                    {{ $extraFeature['content'] ?? 'Bilinmeyen İçerik' }}
+                                                                </a>
+                                                            </li>
+                                                        @endforeach
+                                                    </ul>
+                                                </li>
                                             @endif
                                         @endforeach
                                     </ul>
                                 </div>
                             @endif
+
 
 
 
@@ -408,8 +409,15 @@
                 let selectedPrice = parseFloat($(this).attr("data-price"));
                 let selectedId = $(this).attr("data-id");
                 let selectedContent = $(this).text().trim();
+                let featureGroup = $(this).closest('.feature-group'); // Grup elemanını bul
 
                 console.log("Seçilen fiyat:", selectedPrice);
+
+                // Grup içerisinde bir seçim yapılmış mı kontrol et
+                if (featureGroup.find('.selected').length > 0 && !$(this).hasClass("selected")) {
+                    toastr.error("Bu gruptan yalnızca bir seçim yapabilirsiniz!");
+                    return; // Eğer grup içinde başka bir seçim varsa, yeni seçim yapılmasın
+                }
 
                 if ($(this).hasClass("selected")) {
                     updatedPrice -= selectedPrice;
@@ -440,6 +448,7 @@
                 $(".add-to-cart").attr("data-extra_feature_id", formattedExtraFeatures);
             });
         });
+
 
     </script>
 

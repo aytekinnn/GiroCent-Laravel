@@ -75,6 +75,10 @@ Route::namespace('App\Http\Controllers\Backend')->group(function () {
         Route::get('logout',[BackendDefaultController::class, 'logout'])->name('logout')->middleware('admin');
         Route::get('profile',[BackendDefaultController::class, 'profile'])->name('profile')->middleware('admin');
         Route::post('profile',[BackendDefaultController::class, 'update'])->name('profile.update')->middleware('admin');
+        Route::get('users', [BackendDefaultController::class, 'users'])->name('users.index')->middleware('admin');
+        Route::get('users/delete/{id}', [BackendDefaultController::class, 'deleteUser'])->name('users.delete')->middleware('admin');
+        Route::post('users/view', [BackendDefaultController::class, 'viewUser'])->name('users.view')->middleware('admin');
+        Route::post('users/edit', [BackendDefaultController::class, 'editUser'])->name('users.edit')->middleware('admin');
     });
 
     Route::prefix('tech')->middleware('admin')->group(function () {

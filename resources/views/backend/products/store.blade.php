@@ -317,8 +317,8 @@
                                         <div class="col-sm-12">
                                             <label class="form-label">Üretici*</label>
                                             <div class="position-relative">
-                                                <select name="uretici_id" class="form-select">
-                                                    <option disabled selected>Bir üretici seçin...</option>
+                                                <select name="uretici_id" class="form-select" required>
+                                                    <option>Bir üretici seçin...</option>
                                                     @foreach($manufacturer as $manufacturers)
                                                         <option
                                                             value="{{$manufacturers->id}}">{{$manufacturers->name}}</option>
@@ -330,7 +330,7 @@
                                         <div class="col-sm-12">
                                             <div class="mb-3">
                                                 <label for="categorySelect" class="form-label">Kategori Seç</label>
-                                                <select id="categorySelect" class="form-select">
+                                                <select id="categorySelect" class="form-select" required>
                                                     <option disabled selected>Bir kategori seçin...</option>
                                                     @foreach($category as $categories)
                                                         <option
@@ -353,7 +353,7 @@
                                                 <div id="ozellik-container">
                                                     <div class="row">
                                                         <div class="col-sm-4">
-                                                            <select name="feature_id[]" class="form-select">
+                                                            <select name="feature_id[]" class="form-select" required>
                                                                 <option disabled selected>Bir Özellik seçin...</option>
                                                                 @foreach($feature as $features)
                                                                     <option
@@ -387,7 +387,7 @@
                                                 <div id="ozellik-containers">
                                                     <div class="row">
                                                         <div class="col-sm-4">
-                                                            <select name="extra-feature_id[]" class="form-select">
+                                                            <select name="extra-feature_id[]" required class="form-select">
                                                                 <option disabled selected>Bir Özellik seçin...</option>
                                                                 @foreach($extraFeature as $extraFeatures)
                                                                     <option
@@ -422,7 +422,7 @@
                                         <div class="form-group d-flex align-items-center justify-content-end gap-8">
                                             <button type="button"
                                                     class="form-wizard-previous-btn btn btn-neutral-500 border-neutral-100 px-32">
-                                                Back
+                                                Geri
                                             </button>
                                             <button type="button" class="form-wizard-submit btn btn-primary-600 px-32">
                                                 Yayınla

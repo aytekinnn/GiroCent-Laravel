@@ -118,12 +118,8 @@
                 </a>
                 <ul class="sidebar-submenu">
                     <li>
-                        <a href="javascript:void(0)"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
+                        <a href="{{route('users.index')}}"><i class="ri-circle-fill circle-icon text-primary-600 w-auto"></i>
                             Müşteriler</a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"><i
-                                class="ri-circle-fill circle-icon text-warning-main w-auto"></i> Müşteri Onaylama</a>
                     </li>
                 </ul>
             </li>

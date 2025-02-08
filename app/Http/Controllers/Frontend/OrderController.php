@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Mail\OrderShipped;
+use App\Models\Campaigns;
 use App\Models\Carts;
 use App\Models\Orders;
 use App\Models\Products;
@@ -104,9 +105,36 @@ class OrderController extends Controller
         $orders = Orders::with(['user'])->where('user_id', Auth::user()->id)->get();
 
         foreach ($orders as $order) {
+            $adet = explode('||', $order->adet);
             $productIds = explode('||', $order->cartId);
             $order->products = Products::whereIn('id', $productIds)->get();
+
+            // Kampanyaları product_id'ye göre gruplayarak alıyoruz
+            $campaigns = Campaigns::whereIn('product_id', $productIds)->get()->keyBy('product_id');
+
+            // Taksit bilgilerini işliyoruz
+            $extraFeatureIds = explode('|||', $order->taksit);
+            $extraFeaturePrice = 0;
+
+            foreach($extraFeatureIds as $feature) {
+                if ($feature) {
+                    $featureParts = explode('||', $feature);
+                    foreach ($featureParts as $part) {
+                        $featureDetails = explode(',', $part);
+                        if (isset($featureDetails[2]) && is_numeric($featureDetails[2])) {
+                            $extraFeaturePrice += floatval($featureDetails[2]);
+                        }
+                    }
+                }
+            }
+
+            // Siparişe ilgili bilgileri ekliyoruz
+            $order->adet = $adet;
+            $order->extraFId = $extraFeatureIds;
+            $order->campaigns = $campaigns;
+            $order->extraFeaturePrice = $extraFeaturePrice;
         }
+
 
         return view('frontend.default.order', compact('orders'));
     }

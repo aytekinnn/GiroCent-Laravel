@@ -56,7 +56,6 @@ class OrderController extends Controller
             $products = Products::whereIn('id', $productIds)->get();
             $campaigns = Campaigns::whereIn('product_id', $productIds)->get()->keyBy('product_id');
 
-            // Calculate product details including extra features
             $order->products = $products;
             $order->campaigns = $campaigns;
             $order->extraFId = $extraFeatureIds;

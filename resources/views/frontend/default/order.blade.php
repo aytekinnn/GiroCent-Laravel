@@ -35,13 +35,15 @@
                                 <tr>
                                     <th class="product-thumbnail"></th>
                                     <th class="product-name">Ürün Adı</th>
+                                    <th class="product-date">Sipariş Tarihi</th>
                                     <th class="product-status">Ürün Durumu</th>
-                                    <th class="product-subtotal">İNDİRİMLİ FİYAT</th>
+                                    <th class="product-change">Durum Değiştirme Tarihi</th>
+                                    <th class="product-subtotal">FİYAT</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @foreach($orders as $order)
-                                    @foreach($order->products as $product)
+                                    @foreach($order->products as $index => $product)
                                         <tr>
                                             <td class="product-thumbnail" style="width: 200px">
                                                 <a href="{{ route('product.detail', $product->slug) }}">
@@ -55,33 +57,80 @@
                                                     </a>
                                                 </h4>
                                             </td>
+                                            <td class="product-date">
+                                                {{ $order->created_at ? $order->created_at->format('d.m.Y') : 'Henüz İncelemede' }}
+                                            </td>
                                             <td class="product-status">
                                                 @if($order->status == 1)
-                                                    <button class="btn btn-info" style="background-color: #FFC107">Onay Bekliyor</button>
+                                                    <button class="btn btn-info" style="background-color: #FFC107">Onay
+                                                        Bekliyor
+                                                    </button>
                                                 @elseif($order->status == 2)
                                                     <button class="btn btn-success">Siparişiniz Onaylandı</button>
                                                 @elseif($order->status == 3)
-                                                    <button class="btn btn-warning-300" style="background-color: #DC3545">Siparişiniz Reddedildi</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #DC3545">Siparişiniz Reddedildi
+                                                    </button>
                                                 @elseif($order->status == 4)
-                                                    <button class="btn btn-warning-300" style="background-color: #FFC107">Kısmen Onaylandı</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #FFC107">Kısmen Onaylandı
+                                                    </button>
                                                 @elseif($order->status == 5)
-                                                    <button class="btn btn-warning-300" style="background-color: #FFC107">Limit Açıldı</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #FFC107">Limit Açıldı
+                                                    </button>
                                                 @elseif($order->status == 6)
                                                     <button class="btn btn-success">Sözleşme Hazırlanıyor</button>
                                                 @elseif($order->status == 7)
                                                     <button class="btn btn-success">Sözleşme Kargoda</button>
                                                 @elseif($order->status == 8)
-                                                    <button class="btn btn-warning-300" style="background-color: #FFC107">Ürün Hazırlanıyor</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #FFC107">Ürün Hazırlanıyor
+                                                    </button>
                                                 @elseif($order->status == 9)
-                                                    <button class="btn btn-warning-300" style="background-color: #FFC107">Ürün Kargoda</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #FFC107">Ürün Kargoda
+                                                    </button>
                                                 @elseif($order->status == 10)
-                                                    <button class="btn btn-warning-300" style="background-color: #FFC107">Sözleşme İnceleniyor</button>
+                                                    <button class="btn btn-warning-300"
+                                                            style="background-color: #FFC107">Sözleşme İnceleniyor
+                                                    </button>
                                                 @endif
                                             </td>
+                                            <td class="product-change">
+                                                {{ $order->updated_at ? $order->updated_at->format('d.m.Y') : 'Henüz İncelemede' }}
+                                            </td>
                                             <td class="product-subtotal">
+                                                @php
+                                                    $unitPrice = isset($order->campaigns[$product->id]->new_price) ? floatval($order->campaigns[$product->id]->new_price) : floatval($product->price);
+                                                    $quantity = isset($order->adet[$index]) ? intval($order->adet[$index]) : 1;
+                                                    $totalPrice = $unitPrice * $quantity;
+                                                    $extraFeatureTotal = 0;
+                                                    $extraFeatureContent = [];
+                                                    $extraFeatureNames = [];
+
+                                                    if (!empty($order->extraFId[$index])) {
+                                                        $features = explode('||', $order->extraFId[$index]);
+                                                        foreach ($features as $feature) {
+                                                            if ($feature !== "0") {
+                                                                $featureDetails = explode(',', $feature);
+                                                                if (isset($featureDetails[2]) && is_numeric($featureDetails[2])) {
+                                                                    $extraFeatureTotal += floatval($featureDetails[2]);
+                                                                }
+                                                                $extraFeatureContent[] = $featureDetails[1] ?? 'Bilinmeyen İçerik';
+                                                                $extraFeatureNames[] = \App\Models\ExtraFeatures::find($featureDetails[0])->name ?? 'Bilinmeyen Özellik';
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if ($extraFeatureTotal > 0) {
+                                                        $totalPrice += $extraFeatureTotal;
+                                                    }
+                                                @endphp
                                                 <span>
-                                                    ₺{{ number_format($product->campaigns->first()->new_price ?? $product->price, 2, ',', '.') }}
+                                                    ₺{{ number_format($totalPrice, 2, ',', '.') }}
                                                 </span>
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -96,7 +145,8 @@
                                 </div>
                                 <div class="col-md-5">
                                     <div class="continue-shopping">
-                                        <a href="{{route('product.filter', 'kampanya')}}" class="btn">Alışverişe Devam Et</a>
+                                        <a href="{{route('product.filter', 'kampanya')}}" class="btn">Alışverişe Devam
+                                            Et</a>
                                     </div>
                                 </div>
                             </div>
@@ -163,12 +213,7 @@
         <!-- core-features-end -->
 
 
-
-
     </main>
-
-
-
 
 @endsection
 @section('css')@endsection

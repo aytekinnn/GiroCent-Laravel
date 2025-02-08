@@ -29,15 +29,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $baglantiTelefon
  * @property string $message
  * @property int $status
- * @property int $taksit
- * @property int $cartId
- * @property int $adet
+ * @property string $taksit
+ * @property string $cartId
+ * @property string $adet
  */
 class Orders extends Model
 {
     use HasFactory, softDeletes;
     protected $table = 'orders';
-    protected $fillable = ['user_id', 'phone', 'tc', 'company_name', 'address', 'ulke', 'sehir', 'ilce', 'posta_kodu', 'icraDosya', 'calismaSuresi', 'aylikGelir', 'malVarligi', 'dogum', 'medeni_durum', 'evDurum', 'sgkDurum', 'baglanti', 'baglantiTelefon', 'message', 'status', 'taksit', 'cartId'];
+    protected $fillable = ['user_id', 'phone', 'tc', 'company_name', 'address', 'ulke', 'sehir', 'ilce', 'posta_kodu', 'icraDosya', 'calismaSuresi', 'aylikGelir', 'malVarligi', 'dogum', 'medeni_durum', 'evDurum', 'sgkDurum', 'baglanti', 'baglantiTelefon', 'message', 'status', 'taksit', 'cartId', 'adet'];
 
     public function user()
     {
