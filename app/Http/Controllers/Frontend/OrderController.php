@@ -40,6 +40,19 @@ class OrderController extends Controller
             ]);
         }
 
+        $validate = Validator::make($request->all(), [
+            'checkbox1' => 'required|accepted',
+            'checkbox2' => 'required|accepted',
+            'checkbox3' => 'required|accepted',
+        ]);
+
+        if ($validate->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validate->errors()->first() // İlk hata mesajını döndür
+            ]);
+        }
+
         $validator = Validator::make($request->all(), [
             'phone' => 'required|string',
             'tc' => 'required|string',

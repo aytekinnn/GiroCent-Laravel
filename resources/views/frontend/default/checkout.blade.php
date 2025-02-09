@@ -674,6 +674,9 @@
                     nufus_kayit_ilce: $('input[name="nufus_kayit_ilce"]').val(),
                     e_devlet_sifre: $('input[name="e_devlet_sifre"]').val(),
                     ikamet_suresi: $('input[name="ikamet_suresi"]').val(),
+                    checkbox1: $('input[name="checkbox1"]').is(':checked') ? 1 : 0,
+                    checkbox2: $('input[name="checkbox2"]').is(':checked') ? 1 : 0,
+                    checkbox3: $('input[name="checkbox3"]').is(':checked') ? 1 : 0
                 };
 
                 $.ajax({

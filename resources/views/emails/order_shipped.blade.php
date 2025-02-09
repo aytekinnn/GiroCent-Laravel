@@ -112,8 +112,6 @@
             <p>Teşekkürler, <br>Girocent Ekibi</p>
             <a href="https://girocent.aytekinbagci.com.tr">Girocent Web Sitesi</a>
         </div>
-
-        <a href="#" class="button">Sipariş Durumunu Görüntüle</a>
     </div>
 </body>
 </html>

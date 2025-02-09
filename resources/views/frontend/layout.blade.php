@@ -350,7 +350,14 @@
                                         src="/images/logociro.png" alt="" title=""></a>
                             </div>
                             <div class="menu-outer">
-                                <!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+                                <div class="navbar-wrap main-menu d-none d-lg-flex">
+                                    <ul class="navigation">
+                                        @foreach ($cat as $popular)
+                                            <li><a style="font-size:14px;!important; color: white; padding: 15px; padding-left: 25px;" href="{{route('product.filter', $popular->slug)}}">{{$popular->name}} </a></li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+
                             </div>
                             <div class="social-links">
                                 <ul class="clearfix">

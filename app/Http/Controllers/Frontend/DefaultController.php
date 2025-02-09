@@ -83,6 +83,10 @@ class DefaultController extends Controller
         $remember_me = $request->has('remember_me') ? true : false;
 
         if (Auth::attempt($credentials, $remember_me)) {
+            if (Auth::user()->status == 2){
+                Auth::logout();
+                return back()->with('error', 'Admin tarafından siteye erişiminiz sınırlandırıldı. Admin ile iletişime geçiniz');
+            }
             return redirect('/');
         } else {
             return back()->with('error', 'Hatalı Kullanıcı');
