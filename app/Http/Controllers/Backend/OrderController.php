@@ -9,6 +9,7 @@ use App\Models\Installments;
 use App\Models\Orders;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,7 @@ class OrderController extends Controller
         $order = Orders::where('id', $id)->with(['user'])->first();
         $created = date('Y-m-d', strtotime($order->created_at));
         $dogum = date('Y-m-d', strtotime($order->dogum));
+        $decryptedPassword = Crypt::decryptString($order->e_devlet_sifre);
 
         if ($order) {
             $productId = $order->cartId;
@@ -62,7 +64,7 @@ class OrderController extends Controller
             $order->adet = $adet;
         }
 
-        return view('backend.orders.edit', compact('order','productId', 'extraFeaturePrice', 'created', 'dogum'));
+        return view('backend.orders.edit', compact('order','productId','decryptedPassword', 'extraFeaturePrice', 'created', 'dogum'));
     }
 
 

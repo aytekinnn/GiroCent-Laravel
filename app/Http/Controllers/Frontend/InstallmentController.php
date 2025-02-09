@@ -11,6 +11,9 @@ class InstallmentController extends Controller
 {
     public function index()
     {
+        if (!Auth::check()) {
+            return redirect()->route('login.front')->with('error', 'Taksitlerinizi görüntülemek için giriş yapmanız gerekmektedir.');
+        }
         $installments = Installments::all()->where('user_id', Auth::user()->id)->groupBy(function($item){
             return $item->user_id . '-' . $item->order_id . '-' . $item->product_id;
         });

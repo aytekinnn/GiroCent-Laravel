@@ -32,12 +32,47 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $taksit
  * @property string $cartId
  * @property string $adet
+ * @property string $sirket_gorev
+ * @property string $maks_taksit_tutar
+ * @property string $nufus_kayit_ilce
+ * @property string $e_devlet_sifre
+ * @property string ikamet_suresi
  */
 class Orders extends Model
 {
     use HasFactory, softDeletes;
     protected $table = 'orders';
-    protected $fillable = ['user_id', 'phone', 'tc', 'company_name', 'address', 'ulke', 'sehir', 'ilce', 'posta_kodu', 'icraDosya', 'calismaSuresi', 'aylikGelir', 'malVarligi', 'dogum', 'medeni_durum', 'evDurum', 'sgkDurum', 'baglanti', 'baglantiTelefon', 'message', 'status', 'taksit', 'cartId', 'adet'];
+    protected $fillable = [
+        'user_id',
+        'phone',
+        'tc',
+        'company_name',
+        'address',
+        'ulke',
+        'sehir',
+        'ilce',
+        'posta_kodu',
+        'icraDosya',
+        'calismaSuresi',
+        'aylikGelir',
+        'malVarligi',
+        'dogum',
+        'medeni_durum',
+        'evDurum',
+        'sgkDurum',
+        'baglanti',
+        'baglantiTelefon',
+        'message',
+        'status',
+        'taksit',
+        'cartId',
+        'adet',
+        'sirket_gorev',
+        'maks_taksit_tutar',
+        'nufus_kayit_ilce',
+        'e_devlet_sifre',
+        'ikamet_suresi'
+    ];
 
     public function user()
     {

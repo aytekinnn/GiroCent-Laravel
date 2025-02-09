@@ -10,6 +10,8 @@ use App\Models\Orders;
 use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +21,6 @@ class OrderController extends Controller
 
         $cartId = $request->cartId;
         $user = Auth::user();
-
         if (!$user) {
             return response()->json([
                 'success' => false,
@@ -43,7 +44,7 @@ class OrderController extends Controller
             'phone' => 'required|string',
             'tc' => 'required|string',
             'address' => 'required|string',
-            'company_name' => 'nullable|string',
+            'company_name' => 'required|string',
             'ulke' => 'required|string',
             'sehir' => 'required|string',
             'ilce' => 'required|string',
@@ -60,6 +61,10 @@ class OrderController extends Controller
             'baglantiTelefon' => 'nullable|string',
             'message' => 'nullable|string',
             'taksit' => 'string',
+            'sirket_gorev' => 'required|string',
+            'maks_taksit_tutar' => 'required|string',
+            'nufus_kayit_ilce' => 'required|string',
+            'ikamet_suresi' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -69,13 +74,14 @@ class OrderController extends Controller
             ]);
         }
 
-// Sipariş oluştur
+
         $order = Orders::create(array_merge($validator->validated(), [
             'user_id' => $user->id,
             'adet' => $request->adet,
             'cartId' => $cartId,
             'taksit' => $request->taksit,
             'status' => 1,
+            'e_devlet_sifre' => Crypt::encryptString($request->e_devlet_sifre)
         ]));
 
         try {

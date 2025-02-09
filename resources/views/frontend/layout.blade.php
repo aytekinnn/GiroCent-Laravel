@@ -101,6 +101,27 @@
         color: #e74c3c;
         font-weight: 600;
     }
+
+    .whatsapp-button {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background-color: #25D366;
+        color: white;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        text-decoration: none;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+        transition: background-color 0.3s ease;
+    }
+    .whatsapp-button:hover {
+        background-color: #1EBE5D;
+    }
 </style>
 
 
@@ -202,7 +223,7 @@
                                     <div class="heder-top-guide">
                                         <div class="dropdown">
                                             <button class="dropdown-toggle" type="button" id="dropdownMenuButton2"
-                                                    data-toggle="dropdown"
+                                                    data-toggle="dropdown" style="font-size: 15px"
                                                     aria-haspopup="true" aria-expanded="false">
                                                 <i class="flaticon-user"></i> {{Auth::user()->name}}
                                             </button>
@@ -217,10 +238,10 @@
                                 </li>
                             @else
                                 <li>
-                                    <a style="color: #656565" href="{{route('register.front')}}"><i
+                                    <a style="color: #656565; font-size: 15px" href="{{route('register.front')}}"><i
                                             class="flaticon-user"></i>Üye Ol</a>
                                     <span>or</span>
-                                    <a style="color: #656565" href="{{route('login.front')}}">Giriş Yap</a>
+                                    <a style="color: #656565; font-size: 15px" href="{{route('login.front')}}">Giriş Yap</a>
                                 </li>
                             @endif
 
@@ -240,14 +261,15 @@
                     <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
                     <div class="menu-wrap">
                         <nav class="menu-nav show">
-                            <div class="logo">
-                                <a href="{{route('home.frontend.index')}}"><img src="/images/logociro.png" alt="Logo"></a>
+                            <div style="width:30%" class="logo">
+                                <a href="{{route('home.frontend.index')}}"><img width="100%" src="/images/logociro.png" alt="Logo"></a>
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li class="active"><a href="{{route('home.frontend.index')}}">Ana Sayfa</a>
-                                    </li>
+                                    <li><a href="{{route('home.frontend.index')}}">Ana Sayfa</a></li>
                                     <li><a href="{{route('hakkimizda.index')}}">Hakkımızda</a></li>
+                                    <li><a href="{{route('orders.index')}}">Siparişlerim</a></li>
+                                    <li><a href="{{route('installment.indexs')}}">Taksit Ödeme</a></li>
                                     <li><a href="{{route('iletisim.index')}}">İletişim</a></li>
                                 </ul>
                             </div>
@@ -437,8 +459,8 @@
             <div class="row justify-content-between">
                 <div class="col-lg-4 col-md-6">
                     <div class="footer-widget mb-50">
-                        <div class="footer-logo mb-30">
-                            <a href="{{route('home.frontend.index')}}"><img src="/images/logociro.png" alt=""></a>
+                        <div class="footer-logo mb-30" style="width: 80%">
+                            <a href="{{route('home.frontend.index')}}"><img width="100%" src="/images/logociro.png" alt=""></a>
                         </div>
                         <div class="footer-text mb-35">
                             <h5 class="call-us">Sorunuz mu Var? Hemen arayın 24/7</h5>
@@ -482,12 +504,15 @@
             </div>
         </div>
     </div>
+    <a href="https://wa.me/905423931937" class="whatsapp-button" target="_blank">
+        &#x1F4AC;
+    </a>
     <div class="copyright-wrap copyright-style-two">
         <div class="custom-container-two">
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-6">
                     <div class="copyright-text">
-                        <p>Kopyalanamaz © 2025 <a href="#">UMD Reklam</a> Tüm Hakları Gizlidir.</p>
+                        <p>Kopyalanamaz © 2025 <a href="#">Girocent</a> Tüm Hakları Gizlidir.</p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 d-none d-md-block">

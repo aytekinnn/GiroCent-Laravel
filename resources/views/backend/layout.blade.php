@@ -58,9 +58,9 @@
     </button>
     <div>
         <a href="{{route('home.index')}}" class="sidebar-logo">
-            <img src="/images/logociro.png" alt="site logo" class="light-logo">
-            <img src="/images/logociro.png" alt="site logo" class="dark-logo">
-            <img src="/images/logociro.png" alt="site logo" class="logo-icon">
+            <img width="100%" src="/images/logociro.png" alt="site logo" class="light-logo">
+            <img width="100%" src="/images/logociro.png" alt="site logo" class="dark-logo">
+            <img width="100%" src="/images/logociro.png" alt="site logo" class="logo-icon">
         </a>
     </div>
     <div class="sidebar-menu-area">
